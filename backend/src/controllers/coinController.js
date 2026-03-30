@@ -1,12 +1,13 @@
 import { BASE_URL, ENDPOINTS } from "../config/coingecko.js";
+import {fetchCoinList,fetchCoinListPerPage,fetchCoinChart,fetchCoinsWithChart} from "../services/coinService.js"
 
 const getCoinList = async (req, res) => {
 
   try {
 
-    const response = await fetch(`${BASE_URL}${ENDPOINTS.COINS_LIST}`);
+    const response = await fetchCoinList(req.query);
 
-    if(!response.ok){
+    if(!response.ok){ß
         throw new Error("Failed to get coin list.")
     }
 
@@ -20,7 +21,7 @@ const getCoinList = async (req, res) => {
     console.error("CoinController.js | getCoinList error:" + error.message);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch coins",
+      message: "Failed to get coins",
       error:error.message
     });
   }
@@ -30,22 +31,10 @@ const getCoinListPerPage = async (req, res) => {
 
   try {
 
-    const { count = 10, page = 1, currency = "usd" } = req.query;
+    const response = await fetchCoinListPerPage(req.query);
 
-    const url = `${BASE_URL}${ENDPOINTS.COIN_PER_PAGE}`
-      .replace("${currency}", currency)
-      .replace("${count}", count)
-      .replace("${page}", page);
+    const data=response;
 
-    console.log("my_url", url);
-
-    const response = await fetch(url);
-
-    if(!response.ok){
-        throw new Error("Failed to get coin market list.")
-    }
-
-    const data = await response.json();
     res.status(200).json({
       data,
       success: true,
@@ -55,10 +44,58 @@ const getCoinListPerPage = async (req, res) => {
     console.error("CoinController.js | getCoinListPerPage error:" + error.message);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch market coins.",
+      message: "Failed to get coins per page",
       error:error.message
     });
   }
 };
 
-export {getCoinList,getCoinListPerPage};
+
+const getCoinChart=async (req,res)=>{
+  try {
+
+    const {days,currency}=req.query;
+    const {id}=req.params;
+
+    const response=await fetchCoinChart({id,days,currency});
+
+    const data=response;
+
+    res.status(200).json({
+      success:true,
+      data
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success:false,
+      error:error.message,
+      message:"Failed to get coin chart."
+    });
+  }
+}
+
+
+const getCoinsWithChart =async (req,res)=>{
+
+  try {
+     const response= await fetchCoinsWithChart(req.query);
+
+     const data= response;
+
+     res.status(200).json({
+      success:true,
+      data
+     });
+  } catch (error) {
+    res.status(500).json({
+      success:false,
+      error:error.message,
+      message:"Failed to get coins with chart"
+    })
+  }
+ 
+
+}
+
+export {getCoinList,getCoinListPerPage,getCoinChart,getCoinsWithChart};
