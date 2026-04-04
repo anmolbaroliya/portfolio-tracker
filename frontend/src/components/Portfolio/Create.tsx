@@ -2,7 +2,7 @@ import AvatarSelector from "../AvatarSelector";
 import { useState } from "react";
 
 
-import type { CreatePortfolio } from "../../types/Portfolio";
+import type { CreatePortfolio } from "../../types/portfolio";
 
 export default function Create() {
     const [portfolio,setPortfolio]=useState<CreatePortfolio>({name:"",avatar:""});

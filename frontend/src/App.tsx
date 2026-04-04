@@ -7,13 +7,15 @@ import SideMenu from "./components/SideMenu";
 import { faHome,faWallet,faSearch,faChartLine } from "@fortawesome/free-solid-svg-icons";
 import Table from "./components/Table";
 import Create from "./components/Portfolio/Create";
+import { Route, Routes } from "react-router-dom";
+import Portfolio from "./pages/Portfolio/Portfolio";
 export default function App() {
 
   const menu = [
-  { id: "home", label: "Home", icon: faHome },
-  { id: "portfolio", label: "Portfolio", icon: faWallet},
-  { id: "tracker", label: "Tracker", icon: faSearch },
-  { id: "analysis", label: "Analysis", icon: faChartLine },
+  { id: "home", label: "Home", icon: faHome ,path:""},
+  { id: "portfolio", label: "Portfolio", icon: faWallet,path:"/portfolio"},
+  { id: "tracker", label: "Tracker", icon: faSearch,path:"" },
+  { id: "analysis", label: "Analysis", icon: faChartLine,path:"" },
 ];
 
   const rows = [
@@ -167,6 +169,9 @@ export default function App() {
       <div className="flex h-screen">
         <SideMenu items={menu} />
         <div className="flex-1 p-4 flex flex-col gap-4 overflow-auto min-w-0">
+          <Routes>
+            <Route path="/portfolio" element={<Portfolio/>}/>
+          </Routes>
           <div className="overflow-hidden">
             <div className="flex gap-4 animate-scroll hover:[animation-play-state:paused]">
               {
@@ -178,11 +183,12 @@ export default function App() {
                 ))
               }
             </div>
-          </div> 
+          </div>
           <Create/>
           <div className="flex-1 bg-gray-900 rounded-lg">
             <Table data={tableData} />
           </div>
+
         </div>
       </div>
     </>

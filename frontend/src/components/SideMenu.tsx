@@ -4,12 +4,14 @@ import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import UserProfile from "./UserProfile";
 import HorizontalLine from "./HorizontalLine";
 import react_logo from "../assets/react.svg";
-
+import {Link} from "react-router"
+ 
 type SideMenuProps = {
     items: {
         id: string,
         label: string,
-        icon: IconDefinition
+        icon: IconDefinition,
+        path:string
     }[]
 }
 export default function SideMenu({ items }: SideMenuProps) {
@@ -23,10 +25,14 @@ export default function SideMenu({ items }: SideMenuProps) {
                 </div>
                 {
                     items.map((item) => (
-                        <button key={item.id} className="flex items-center  gap-3 w-full  px-4 py-3 text-gray-300 rounded-lg border border-transparent hover:border-white/40 hover:bg-[#1a2335] hover:text-white transition-colors duration-200 cursor-pointer">
+                        <Link 
+                                key={item.id} 
+                                className="flex items-center  gap-3 w-full  px-4 py-3 text-gray-300 rounded-lg border border-transparent hover:border-white/40 hover:bg-[#1a2335] hover:text-white transition-colors duration-200 cursor-pointer"
+                                to={item.path}
+                        >
                             <FontAwesomeIcon icon={item.icon} className="w-5 h-5 shrink-0" />
                             <span className="text-sm font-medium">{item.label}</span>
-                        </button>))
+                        </Link>))
                 }
             </div>
             <div className="pt-3">

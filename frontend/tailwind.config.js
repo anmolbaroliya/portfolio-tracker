@@ -19,7 +19,10 @@ export default {
         primary: "#6366f1",
         secondary: "#94a3b8",
         success: "#10b981",
-        error: "#f43f5e"
+        error: "#f43f5e",
+        line:"gray-500/30",
+        heading:"#000",
+        description:"#58667e"
       }
     },
   },
