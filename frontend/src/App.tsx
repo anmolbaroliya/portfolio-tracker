@@ -6,6 +6,7 @@ import SideMenu from "./components/SideMenu";
 
 import { faHome,faWallet,faSearch,faChartLine } from "@fortawesome/free-solid-svg-icons";
 import Table from "./components/Table";
+import Create from "./components/Portfolio/Create";
 export default function App() {
 
   const menu = [
@@ -177,7 +178,8 @@ export default function App() {
                 ))
               }
             </div>
-          </div>
+          </div> 
+          <Create/>
           <div className="flex-1 bg-gray-900 rounded-lg">
             <Table data={tableData} />
           </div>
